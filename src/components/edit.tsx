@@ -13,7 +13,11 @@ import {
   TextField,
 } from '@mui/material';
 
-export const Edit: FC = () => {
+type EditPropTypes = {
+  edit: boolean;
+};
+
+export const Edit: FC<EditPropTypes> = ({ edit }) => {
   const [open, setOpen] = useState(false);
 
   const [title, setTitle] = useState<string>('');
@@ -44,7 +48,7 @@ export const Edit: FC = () => {
   return (
     <>
       <IconButton onClick={handleClickOpen}>
-        <Icon>edit_note</Icon>
+        {edit ? <Icon>edit_note</Icon> : <Icon>add_box</Icon>}
       </IconButton>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Change to-do</DialogTitle>

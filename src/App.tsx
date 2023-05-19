@@ -12,7 +12,7 @@ const App: FC = () => {
         <h1>To-do</h1>
       </Grid>
       <Controls />
-      <Edit />
+      <Edit edit={true} />
       <Grid xs={12}>
         <Stack spacing={2}>
           {todos.map((todo) => (

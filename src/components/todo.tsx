@@ -1,6 +1,7 @@
 import { Card, Icon, IconButton, styled } from '@mui/material';
 import { FC } from 'react';
 import { TodoType } from '../data/todos';
+import { Edit } from './edit';
 
 export const Todo: FC<TodoType> = ({ id, title, completed }) => {
   const Todo = styled(Card)(({ theme }) => ({
@@ -12,14 +13,12 @@ export const Todo: FC<TodoType> = ({ id, title, completed }) => {
     color: theme.palette.text.secondary,
     display: 'flex',
   }));
-  const editHandler = (e) => console.log(e, id);
+
   return (
     <Todo>
       {title}
       <div>
-        <IconButton onClick={editHandler}>
-          <Icon>edit_note</Icon>
-        </IconButton>
+        <Edit edit={true} />
         <IconButton>
           {completed ? <Icon>check_circle</Icon> : <Icon>unpublished</Icon>}
         </IconButton>
