@@ -1,30 +1,16 @@
-import { Stack, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { FC } from 'react';
 import { Controls } from './components/controls';
-import { Todo } from './components/todo';
-import { useTypedSelector } from './hooks/useTypedSelector';
+import { Todos } from './components/todos';
 
 const App: FC = () => {
-  const todos = useTypedSelector((state) => state.todos);
-
   return (
-    <Grid container>
-      <Grid xs={12}>
+    <Grid container spacing={1}>
+      <Grid item xs={12}>
         <h1>To-do</h1>
       </Grid>
       <Controls />
-      <Grid xs={12}>
-        <Stack spacing={2}>
-          {todos.map((todo) => (
-            <Todo
-              completed={todo.completed}
-              id={todo.id}
-              title={todo.title}
-              userId={todo.userId}
-            ></Todo>
-          ))}
-        </Stack>
-      </Grid>
+      <Todos />
     </Grid>
   );
 };

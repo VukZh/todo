@@ -2,7 +2,7 @@ import { TodosType, TodoType, TodoTypeForAdd } from '../data/todos';
 
 type SortType = 'title' | 'user' | 'completed' | null;
 
-type FilterType = 'completed' | 'uncompleted' | null;
+type FilterType = 'completed' | 'uncompleted' | 'both';
 
 type StateType = {
   todos: TodosType;

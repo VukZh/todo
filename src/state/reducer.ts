@@ -6,7 +6,7 @@ const initialState: StateType = {
   maxId: Math.max(...todos.map((todo) => todo.id)),
   searchedId: null,
   sortBy: null,
-  filterBy: null,
+  filterBy: 'both',
 };
 
 export const reducer = (

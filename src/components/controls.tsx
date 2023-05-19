@@ -9,6 +9,9 @@ import {
 } from '@mui/material';
 import { todos } from '../data/todos';
 import { Edit } from './edit';
+import { useTypedDispatch } from '../hooks/useTypedDispatch';
+import { filterByActionCreator } from '../state/actions';
+import { FilterType } from '../state/types';
 
 const completedOptions = [
   {
@@ -26,12 +29,16 @@ const completedOptions = [
 ];
 
 export const Controls: FC = () => {
+  const dispatch = useTypedDispatch();
+  const changeFilterHandler = (e) =>
+    dispatch(filterByActionCreator(e.target.value as FilterType));
+
   return (
     <>
-      <Grid xs={1}>
+      <Grid item xs={1}>
         <Edit edit={false} />
       </Grid>
-      <Grid xs={3}>
+      <Grid item xs={3}>
         <Autocomplete
           disablePortal
           id='combo-box-demo'
@@ -45,13 +52,14 @@ export const Controls: FC = () => {
           renderInput={(params) => <TextField {...params} label='Search' />}
         />
       </Grid>
-      <Grid xs={2}>
+      <Grid item xs={2}>
         <TextField
           fullWidth
           id='filtered-completed'
           select
           label='Filtered completed'
           defaultValue='both'
+          onChange={changeFilterHandler}
         >
           {completedOptions.map((todo) => (
             <MenuItem key={todo.value} value={todo.value}>
@@ -60,8 +68,9 @@ export const Controls: FC = () => {
           ))}
         </TextField>
       </Grid>
-      <Grid xs={6}>
+      <Grid item xs={6}>
         <ToggleButtonGroup
+          size='large'
           color='primary'
           value='title'
           exclusive
