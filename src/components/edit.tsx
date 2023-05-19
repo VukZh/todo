@@ -13,19 +13,33 @@ import {
   TextField,
 } from '@mui/material';
 import { useTypedDispatch } from '../hooks/useTypedDispatch';
-import { addTodoActionCreator } from '../state/actions';
+import {
+  addTodoActionCreator,
+  changeTodoActionCreator,
+} from '../state/actions';
+import { TodoType } from '../data/todos';
 
-type EditPropTypes = {
+interface EditPropTypes extends Partial<TodoType> {
   edit: boolean;
-};
-export const Edit: FC<EditPropTypes> = ({ edit }) => {
+}
+export const Edit: FC<EditPropTypes> = ({
+  edit,
+  title,
+  userId,
+  id,
+  completed,
+}) => {
+  const initialTitle = title ? title : '';
+  const initialUserId = userId ? userId : 1;
+  const initialCompleted = completed ? completed : false;
+
   const [open, setOpen] = useState(false);
 
-  const [title, setTitle] = useState<string>('');
+  const [_title, set_title] = useState<string>(initialTitle);
 
-  const [userId, setUserId] = useState<number>(1);
+  const [_userId, set_userId] = useState<number>(initialUserId);
 
-  const [completed, setCompleted] = useState<boolean>(false);
+  const [_completed, set_completed] = useState<boolean>(initialCompleted);
 
   const dispatch = useTypedDispatch();
 
@@ -54,12 +68,19 @@ export const Edit: FC<EditPropTypes> = ({ edit }) => {
           completed: e.target[2].checked,
         })
       );
+      set_title('');
+      set_userId(1);
+      set_completed(false);
+    } else if (id) {
+      dispatch(
+        changeTodoActionCreator({
+          id: id,
+          title: e.target[0].value,
+          userId: +e.target[1].value,
+          completed: e.target[2].checked,
+        })
+      );
     }
-
-    setTitle('');
-    setUserId(1);
-    setCompleted(false);
-
     setOpen(false);
   };
 
@@ -78,21 +99,21 @@ export const Edit: FC<EditPropTypes> = ({ edit }) => {
                 type='text'
                 variant='standard'
                 style={{ width: '350px' }}
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                value={_title}
+                onChange={(e) => set_title(e.target.value)}
               />
               <TextField
                 label='UserId'
                 type='number'
                 variant='standard'
-                value={userId}
-                onChange={(e) => setUserId(+e.target.value)}
+                value={_userId}
+                onChange={(e) => set_userId(+e.target.value)}
               />
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={completed}
-                    onChange={(e) => setCompleted(e.target.checked)}
+                    checked={_completed}
+                    onChange={(e) => set_completed(e.target.checked)}
                   />
                 }
                 label='Completed'
@@ -101,7 +122,7 @@ export const Edit: FC<EditPropTypes> = ({ edit }) => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button type='submit' disabled={!title || !userId}>
+            <Button type='submit' disabled={!_title || !_userId}>
               Save
             </Button>
           </DialogActions>

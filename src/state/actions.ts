@@ -65,4 +65,5 @@ export {
   completedTodoActionCreator,
   filterByActionCreator,
   sortByActionCreator,
+  changeTodoActionCreator,
 };

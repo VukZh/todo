@@ -8,7 +8,7 @@ import {
   delTodoActionCreator,
 } from '../state/actions';
 
-export const Todo: FC<TodoType> = ({ id, title, completed }) => {
+export const Todo: FC<TodoType> = ({ id, title, completed, userId }) => {
   const Todo = styled(Card)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -40,7 +40,13 @@ export const Todo: FC<TodoType> = ({ id, title, completed }) => {
     >
       {title}
       <div>
-        <Edit edit={true} />
+        <Edit
+          edit={true}
+          id={id}
+          title={title}
+          userId={userId}
+          completed={completed}
+        />
         <IconButton onClick={changeCompleteHandler}>
           {completed ? <Icon>check_circle</Icon> : <Icon>unpublished</Icon>}
         </IconButton>
