@@ -53,13 +53,6 @@ export const Edit: FC<EditPropTypes> = ({
 
   const handleSave = (e) => {
     e.preventDefault();
-    console.log(
-      'form data: ',
-      e.target[0].value,
-      e.target[1].value,
-      e.target[2].checked
-    );
-
     if (!edit) {
       dispatch(
         addTodoActionCreator({

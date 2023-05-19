@@ -41,6 +41,7 @@ export const Todos: FC = () => {
             id={todo.id}
             title={todo.title}
             userId={todo.userId}
+            key={todo.id}
           ></Todo>
         ))}
       </Stack>
