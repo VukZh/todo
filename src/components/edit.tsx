@@ -50,7 +50,7 @@ export const Edit: FC<EditPropTypes> = ({ edit }) => {
       dispatch(
         addTodoActionCreator({
           title: e.target[0].value,
-          userId: e.target[1].value,
+          userId: +e.target[1].value,
           completed: e.target[2].checked,
         })
       );

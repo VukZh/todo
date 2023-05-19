@@ -50,4 +50,4 @@ const filterByActionCreator = (filter: FilterType): FilterByActionType => ({
   payload: filter,
 });
 
-export { addTodoActionCreator };
+export { addTodoActionCreator, delTodoActionCreator };

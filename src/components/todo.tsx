@@ -2,6 +2,8 @@ import { Card, Icon, IconButton, styled } from '@mui/material';
 import { FC } from 'react';
 import { TodoType } from '../data/todos';
 import { Edit } from './edit';
+import { useTypedDispatch } from '../hooks/useTypedDispatch';
+import { delTodoActionCreator } from '../state/actions';
 
 export const Todo: FC<TodoType> = ({ id, title, completed }) => {
   const Todo = styled(Card)(({ theme }) => ({
@@ -14,6 +16,9 @@ export const Todo: FC<TodoType> = ({ id, title, completed }) => {
     display: 'flex',
   }));
 
+  const dispatch = useTypedDispatch();
+  const delHandler = () => dispatch(delTodoActionCreator(id));
+
   return (
     <Todo>
       {title}
@@ -22,7 +27,7 @@ export const Todo: FC<TodoType> = ({ id, title, completed }) => {
         <IconButton>
           {completed ? <Icon>check_circle</Icon> : <Icon>unpublished</Icon>}
         </IconButton>
-        <IconButton>
+        <IconButton onClick={delHandler}>
           <Icon>delete</Icon>
         </IconButton>
       </div>

@@ -17,11 +17,12 @@ export const reducer = (
     case ActionTypes.ADD_TODO: {
       const maxId = Math.max(...state.todos.map((todo) => todo.id)) + 1;
       const newTodo = { ...action.payload, id: maxId };
-      return { ...state, todos: [...state.todos, newTodo] };
+      return { ...state, maxId: maxId, todos: [...state.todos, newTodo] };
     }
     case ActionTypes.DEL_TODO: {
       const newTodos = state.todos.filter((todo) => todo.id !== action.payload);
-      return { ...state, todos: [...newTodos] };
+      const maxId = Math.max(...newTodos.map((todo) => todo.id));
+      return { ...state, maxId: maxId, todos: [...newTodos] };
     }
     case ActionTypes.CHANGE_TODO: {
       const newTodos = state.todos.map((todo) => {
