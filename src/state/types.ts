@@ -1,4 +1,4 @@
-import { TodosType, TodoType } from '../data/todos';
+import { TodosType, TodoType, TodoTypeForAdd } from '../data/todos';
 
 type SortType = 'title' | 'user' | 'completed' | null;
 
@@ -12,6 +12,8 @@ type StateType = {
   filterBy: FilterType;
 };
 
+type CompletedType = Pick<TodoType, 'id' | 'completed'>;
+
 export enum ActionTypes {
   ADD_TODO = 'ADD_TODO',
   DEL_TODO = 'DEL_TODO',
@@ -19,11 +21,12 @@ export enum ActionTypes {
   SET_SEARCH_ID = 'SET_SEARCH_ID',
   SET_SORT = 'SET_SORT',
   SET_FILTER = 'SET_FILTER',
+  SET_COMPLETE = 'SET_COMPLETE',
 }
 
 type AddTodoActionType = {
   type: ActionTypes.ADD_TODO;
-  payload: Omit<TodoType, 'id'>;
+  payload: TodoTypeForAdd;
 };
 
 type DelTodoActionType = {
@@ -51,6 +54,11 @@ type FilterByActionType = {
   payload: FilterType;
 };
 
+type CompletedActionType = {
+  type: ActionTypes.SET_COMPLETE;
+  payload: CompletedType;
+};
+
 export type {
   AddTodoActionType,
   DelTodoActionType,
@@ -69,4 +77,5 @@ export type TodoActionsType =
   | ChangeTodoActionType
   | SearchIdActionType
   | SortByActionType
-  | FilterByActionType;
+  | FilterByActionType
+  | CompletedActionType;

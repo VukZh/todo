@@ -41,6 +41,20 @@ export const reducer = (
     case ActionTypes.SET_FILTER: {
       return { ...state, filterBy: action.payload };
     }
+    case ActionTypes.SET_COMPLETE: {
+      const newTodos = state.todos.map((todo) => {
+        if (todo.id === action.payload.id) {
+          return {
+            id: todo.id,
+            title: todo.title,
+            userId: todo.userId,
+            completed: action.payload.completed,
+          };
+        }
+        return todo;
+      });
+      return { ...state, todos: [...newTodos] };
+    }
     default:
       return state;
   }

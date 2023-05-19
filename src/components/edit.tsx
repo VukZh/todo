@@ -12,19 +12,22 @@ import {
   Stack,
   TextField,
 } from '@mui/material';
+import { useTypedDispatch } from '../hooks/useTypedDispatch';
+import { addTodoActionCreator } from '../state/actions';
 
 type EditPropTypes = {
   edit: boolean;
 };
-
 export const Edit: FC<EditPropTypes> = ({ edit }) => {
   const [open, setOpen] = useState(false);
 
   const [title, setTitle] = useState<string>('');
 
-  const [userId, setUserId] = useState<number>(0);
+  const [userId, setUserId] = useState<number>(1);
 
   const [completed, setCompleted] = useState<boolean>(false);
+
+  const dispatch = useTypedDispatch();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -40,8 +43,23 @@ export const Edit: FC<EditPropTypes> = ({ edit }) => {
       'form data: ',
       e.target[0].value,
       e.target[1].value,
-      e.target[2].value
+      e.target[2].checked
     );
+
+    if (!edit) {
+      dispatch(
+        addTodoActionCreator({
+          title: e.target[0].value,
+          userId: e.target[1].value,
+          completed: e.target[2].checked,
+        })
+      );
+    }
+
+    setTitle('');
+    setUserId(1);
+    setCompleted(false);
+
     setOpen(false);
   };
 
@@ -51,7 +69,7 @@ export const Edit: FC<EditPropTypes> = ({ edit }) => {
         {edit ? <Icon>edit_note</Icon> : <Icon>add_box</Icon>}
       </IconButton>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Change to-do</DialogTitle>
+        <DialogTitle>{`${edit ? 'Change' : 'Add'} to-do`}</DialogTitle>
         <form onSubmit={handleSave}>
           <DialogContent>
             <Stack spacing={2}>
@@ -74,7 +92,7 @@ export const Edit: FC<EditPropTypes> = ({ edit }) => {
                 control={
                   <Checkbox
                     checked={completed}
-                    onChange={(e) => setCompleted(!!e.target.value)}
+                    onChange={(e) => setCompleted(e.target.checked)}
                   />
                 }
                 label='Completed'

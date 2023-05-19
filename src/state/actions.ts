@@ -9,9 +9,9 @@ import {
   SortByActionType,
   SortType,
 } from './types';
-import { TodoType } from '../data/todos';
+import { TodoType, TodoTypeForAdd } from '../data/todos';
 
-const AddTodoAction = (todo: Omit<TodoType, 'id'>): AddTodoActionType => ({
+const addTodoActionCreator = (todo: TodoTypeForAdd): AddTodoActionType => ({
   type: ActionTypes.ADD_TODO,
   payload: {
     title: todo.title,
@@ -20,12 +20,12 @@ const AddTodoAction = (todo: Omit<TodoType, 'id'>): AddTodoActionType => ({
   },
 });
 
-const DelTodoAction = (todoId: number): DelTodoActionType => ({
+const delTodoActionCreator = (todoId: number): DelTodoActionType => ({
   type: ActionTypes.DEL_TODO,
   payload: todoId,
 });
 
-const ChangeTodoAction = (todo: TodoType): ChangeTodoActionType => ({
+const changeTodoActionCreator = (todo: TodoType): ChangeTodoActionType => ({
   type: ActionTypes.CHANGE_TODO,
   payload: {
     id: todo.id,
@@ -35,17 +35,19 @@ const ChangeTodoAction = (todo: TodoType): ChangeTodoActionType => ({
   },
 });
 
-const SearchIdAction = (id: number): SearchIdActionType => ({
+const searchIdActionCreator = (id: number): SearchIdActionType => ({
   type: ActionTypes.SET_SEARCH_ID,
   payload: id,
 });
 
-const SortByAction = (sort: SortType): SortByActionType => ({
+const sortByActionCreator = (sort: SortType): SortByActionType => ({
   type: ActionTypes.SET_SORT,
   payload: sort,
 });
 
-const FilterByAction = (filter: FilterType): FilterByActionType => ({
+const filterByActionCreator = (filter: FilterType): FilterByActionType => ({
   type: ActionTypes.SET_FILTER,
   payload: filter,
 });
+
+export { addTodoActionCreator };

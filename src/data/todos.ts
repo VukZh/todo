@@ -5,6 +5,8 @@ export type TodoType = {
   completed: boolean;
 };
 
+export type TodoTypeForAdd = Omit<TodoType, 'id'>;
+
 export type TodosType = TodoType[];
 
 export const todos: TodosType = [
