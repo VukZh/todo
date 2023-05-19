@@ -51,7 +51,7 @@ export const Edit: FC<EditPropTypes> = ({
     setOpen(false);
   };
 
-  const handleSave = (e) => {
+  const handleSave = (e: any) => {
     e.preventDefault();
     if (!edit) {
       dispatch(

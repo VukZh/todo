@@ -37,25 +37,25 @@ export const Controls: FC = () => {
   const sortBy = useTypedSelector((state) => state.sortBy);
   const todos = useTypedSelector((state) => state.todos);
 
-  const foundedId = useTypedSelector((state) => state.searchedId);
+  const foundId = useTypedSelector((state) => state.searchedId);
 
-  const foundTodo = foundedId
-    ? todos.find((todo) => todo.id === foundedId)
-    : null;
+  const foundTodo = foundId ? todos.find((todo) => todo.id === foundId) : null;
 
   const dispatch = useTypedDispatch();
-  const changeFilterHandler = (e) =>
+  const changeFilterHandler = (e: any) =>
     dispatch(filterByActionCreator(e.target.value as FilterType));
 
-  const changeSortHandler = (e) => {
+  const changeSortHandler = (e: any) => {
     const option = e.target?.value ? e.target?.value : null;
     dispatch(sortByActionCreator(option));
   };
 
-  const searchHandler = (e) => {
+  const searchHandler = (e: any) => {
     const option = e.target as HTMLElement;
     const found = todos.find((todo) => todo.title === option.innerHTML);
-    dispatch(searchIdActionCreator(found.id));
+    if (found?.id) {
+      dispatch(searchIdActionCreator(found.id));
+    }
   };
 
   return (
@@ -106,7 +106,7 @@ export const Controls: FC = () => {
           <ToggleButton value='user'>Sort by user</ToggleButton>
         </ToggleButtonGroup>
       </Grid>
-      {foundedId & foundTodo?.id ? (
+      {foundTodo?.id ? (
         <Grid item xs={12}>
           <div>Found: </div>
           <Todo
