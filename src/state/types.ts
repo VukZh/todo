@@ -12,7 +12,7 @@ type StateType = {
   filterBy: FilterType;
 };
 
-type CompletedType = Pick<TodoType, 'id' | 'completed'>;
+export type CompletedType = Pick<TodoType, 'id' | 'completed'>;
 
 export enum ActionTypes {
   ADD_TODO = 'ADD_TODO',
@@ -62,6 +62,7 @@ type CompletedActionType = {
 export type {
   AddTodoActionType,
   DelTodoActionType,
+  CompletedActionType,
   ChangeTodoActionType,
   SearchIdActionType,
   SortByActionType,
@@ -74,8 +75,8 @@ export type {
 export type TodoActionsType =
   | AddTodoActionType
   | DelTodoActionType
+  | CompletedActionType
   | ChangeTodoActionType
   | SearchIdActionType
   | SortByActionType
-  | FilterByActionType
-  | CompletedActionType;
+  | FilterByActionType;

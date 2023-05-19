@@ -3,7 +3,10 @@ import { FC } from 'react';
 import { TodoType } from '../data/todos';
 import { Edit } from './edit';
 import { useTypedDispatch } from '../hooks/useTypedDispatch';
-import { delTodoActionCreator } from '../state/actions';
+import {
+  completedTodoActionCreator,
+  delTodoActionCreator,
+} from '../state/actions';
 
 export const Todo: FC<TodoType> = ({ id, title, completed }) => {
   const Todo = styled(Card)(({ theme }) => ({
@@ -19,12 +22,26 @@ export const Todo: FC<TodoType> = ({ id, title, completed }) => {
   const dispatch = useTypedDispatch();
   const delHandler = () => dispatch(delTodoActionCreator(id));
 
+  const changeCompleteHandler = () =>
+    dispatch(
+      completedTodoActionCreator({
+        id: id,
+        completed: !completed,
+      })
+    );
+
   return (
-    <Todo>
+    <Todo
+      style={
+        completed
+          ? { backgroundColor: 'lightgreen' }
+          : { backgroundColor: 'lightpink' }
+      }
+    >
       {title}
       <div>
         <Edit edit={true} />
-        <IconButton>
+        <IconButton onClick={changeCompleteHandler}>
           {completed ? <Icon>check_circle</Icon> : <Icon>unpublished</Icon>}
         </IconButton>
         <IconButton onClick={delHandler}>

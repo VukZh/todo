@@ -2,6 +2,8 @@ import {
   ActionTypes,
   AddTodoActionType,
   ChangeTodoActionType,
+  CompletedActionType,
+  CompletedType,
   DelTodoActionType,
   FilterByActionType,
   FilterType,
@@ -23,6 +25,13 @@ const addTodoActionCreator = (todo: TodoTypeForAdd): AddTodoActionType => ({
 const delTodoActionCreator = (todoId: number): DelTodoActionType => ({
   type: ActionTypes.DEL_TODO,
   payload: todoId,
+});
+
+const completedTodoActionCreator = (
+  completed: CompletedType
+): CompletedActionType => ({
+  type: ActionTypes.SET_COMPLETE,
+  payload: completed,
 });
 
 const changeTodoActionCreator = (todo: TodoType): ChangeTodoActionType => ({
@@ -50,4 +59,8 @@ const filterByActionCreator = (filter: FilterType): FilterByActionType => ({
   payload: filter,
 });
 
-export { addTodoActionCreator, delTodoActionCreator };
+export {
+  addTodoActionCreator,
+  delTodoActionCreator,
+  completedTodoActionCreator,
+};
