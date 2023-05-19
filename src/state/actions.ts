@@ -64,4 +64,5 @@ export {
   delTodoActionCreator,
   completedTodoActionCreator,
   filterByActionCreator,
+  sortByActionCreator,
 };

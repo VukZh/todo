@@ -7,7 +7,7 @@ const App: FC = () => {
   return (
     <Grid container spacing={1}>
       <Grid item xs={12}>
-        <h1>To-do</h1>
+        <h1 style={{ textAlign: 'center' }}>To-do app</h1>
       </Grid>
       <Controls />
       <Todos />

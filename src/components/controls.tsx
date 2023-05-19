@@ -10,8 +10,9 @@ import {
 import { todos } from '../data/todos';
 import { Edit } from './edit';
 import { useTypedDispatch } from '../hooks/useTypedDispatch';
-import { filterByActionCreator } from '../state/actions';
+import { filterByActionCreator, sortByActionCreator } from '../state/actions';
 import { FilterType } from '../state/types';
+import { useTypedSelector } from '../hooks/useTypedSelector';
 
 const completedOptions = [
   {
@@ -29,9 +30,17 @@ const completedOptions = [
 ];
 
 export const Controls: FC = () => {
+  const sortBy = useTypedSelector((state) => state.sortBy);
+
   const dispatch = useTypedDispatch();
   const changeFilterHandler = (e) =>
     dispatch(filterByActionCreator(e.target.value as FilterType));
+
+  const changeSortHandler = (e) => {
+    const option = e.target?.value ? e.target?.value : null;
+    dispatch(sortByActionCreator(option));
+    console.log(option);
+  };
 
   return (
     <>
@@ -72,13 +81,10 @@ export const Controls: FC = () => {
         <ToggleButtonGroup
           size='large'
           color='primary'
-          value='title'
+          value={sortBy}
           exclusive
           aria-label='Platform'
-          onChange={(e) => {
-            const option = e.target as HTMLInputElement;
-            console.log(option.value);
-          }}
+          onChange={changeSortHandler}
         >
           <ToggleButton value='title'>Sort by title</ToggleButton>
           <ToggleButton value='completed'>Sort by completed</ToggleButton>
